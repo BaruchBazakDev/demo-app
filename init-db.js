@@ -25,5 +25,32 @@ db.devops.insertMany([
         "city": "Mevaseret",
         "address": "aahaghgd",
         "phone_number": "054-319-7477"
+    }
+]);
+
+db.getSiblingDB("Develeap");
+db.courses.drop();
+
+db.courses.insertMany([
+    {
+        "title": "Python 101",
+        "description": "Learn Python basics",
+        "price": 50,
+        "available": true,
+        "level": "Beginner"
+    },
+    {
+        "title": "Docker 101",
+        "description": "Learn Docker basics",
+        "price": 100,
+        "available": true,
+        "level": "Beginner"
+    },
+    {
+        "title": "Bash",
+        "description": "Learn Bash basics",
+        "price": 25,
+        "available": true,
+        "level": "Beginner"
     },
 ]);
