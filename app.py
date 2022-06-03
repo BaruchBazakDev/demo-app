@@ -30,6 +30,13 @@ def get_stored_devops():
     return jsonify({"employees": employees})
 
 
+@app.route("/search/<name>")
+def search(name):
+    db = get_db()
+    res = db.devops.find_one({"f_name": name})
+    return f"result: {res}"
+
+
 @app.route("/insert")
 def insert():
     db = get_db()
@@ -43,14 +50,14 @@ def insert():
 def remove(name):
     db = get_db()
     x = db.devops.delete_one({"f_name": name})
-    return x
+    return str(x)
 
 
-@app.route("/search/<name>")
-def search(name):
+@app.route("/update/<name>/<new_phone>")
+def update(name, new_phone):
     db = get_db()
-    res = db.devops.find_one({"f_name": name})
-    return f"result: {res}"
+    x = db.devops.update_one({"f_name": name}, {"$set": {"phone_number": new_phone}})
+    return str(x)
 
 
 if __name__ == '__main__':
