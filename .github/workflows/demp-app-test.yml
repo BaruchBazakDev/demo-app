@@ -1,0 +1,27 @@
+name: Basic CI 
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      
+    - name: run docker-compose
+      run: docker-compose up
+      
+    - name: test
+      run: curl 127.0.0.1:5000/devops
+      
+    - name: shutdown
+      run: docker-compose-down
