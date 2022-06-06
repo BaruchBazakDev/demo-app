@@ -20,8 +20,11 @@ jobs:
     - name: run docker-compose
       run: docker-compose up -d
       
-    - name: test
-      run: docker build ./tests --file Dockerfile --tag test_demo_app:latest && docker run --network demo-app_app test_demo_app:latest 
+    - name: build test
+      run: docker build ./tests --file Dockerfile --tag test_demo_app:latest
+      
+    - name: run sanity test
+      run: docker run --network demo-app_app test_demo_app:latest
       
     - name: shutdown
-      run: docker-compose-down
+      run: docker-compose down
