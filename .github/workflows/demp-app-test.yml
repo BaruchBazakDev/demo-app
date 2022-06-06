@@ -21,7 +21,7 @@ jobs:
       run: docker-compose up -d
       
     - name: test
-      run: docker build ./tests --file Dockerfile --tag test_demo_app:latest && docker run -it --network app test_demo_app:latest 
+      run: docker build ./tests --file Dockerfile --tag test_demo_app:latest && docker run --network demo-app_app test_demo_app:latest 
       
     - name: shutdown
       run: docker-compose-down
