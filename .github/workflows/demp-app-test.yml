@@ -24,7 +24,7 @@ jobs:
       run: docker build ./tests --file Dockerfile --tag test_demo_app:latest
       
     - name: run sanity test
-      run: docker run --network demo-app_app test_demo_app:latest
+      run: docker run -d --network demo-app_app test_demo_app:latest
       
     - name: shutdown
       run: docker-compose down
