@@ -1,0 +1,27 @@
+name: Basic CI 
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag flask_app:latest
+      
+    - name: run docker-compose
+      run: docker-compose up -d
+      
+    - name: test
+      run: curl demo-app_app_1:5000/devops
+      
+    - name: shutdown
+      run: docker-compose-down
