@@ -21,7 +21,7 @@ jobs:
       run: docker-compose up -d
       
     - name: test
-      run: curl demo-app_app_1:5000/devops
+      run: docker build ./tests --file Dockerfile --tag test_demo_app:latest && docker run -it --network app test_demo_app:latest 
       
     - name: shutdown
       run: docker-compose-down
