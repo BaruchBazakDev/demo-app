@@ -2,6 +2,7 @@ version: "3"
 services:
 
   app:
+    container_name: demo-app
     image: flask_app:latest
     command: python -u app.py
     ports:
@@ -10,7 +11,10 @@ services:
       - .:/app
     links:
       - db
+    networks:
+      - app
   db:
+    container_name: mongodb
     image: mongo:latest
     hostname: test_mongodb
     environment:
@@ -19,5 +23,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
       - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
-    ports:
-      - "27017:27017"
+    networks:
+      - app
+
+networks:
+  app:
