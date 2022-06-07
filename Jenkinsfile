@@ -63,7 +63,7 @@ pipeline {
         }
 
         stage('Publish') {
-
+            echo "publish to ecr"
         }
 
     post {
