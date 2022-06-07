@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, redirect, url_for, request
 import pymongo
 from pymongo import MongoClient
 from forms import CourseForm, Employee
+import os
 
 
 app = Flask(__name__)
@@ -9,10 +10,10 @@ app.config['SECRET_KEY'] = 'auiofhsghzdffjuvhbnjkbhsdfg'
 
 
 def get_db(db_name):
-    client = MongoClient(host='mongo-mongodb-0.mongo-mongodb-headless',
+    client = MongoClient(host=os.environ['MONGO_URI'],
                          port=27017, 
-                         username='root', 
-                         password='pass',
+                         username=os.environ['MONGO_USERNAME'],
+                         password=os.environ['MONGO_PASS'],
                          authSource="admin")
     db = client[db_name]
     return db
@@ -20,7 +21,7 @@ def get_db(db_name):
 
 @app.route('/')
 def ping_server():
-    return "Welcome to the world of DevOps."
+    return f"Welcome to the world of DevOps."
 
 
 @app.route('/devops')
@@ -95,7 +96,7 @@ def index():
                   'available': form.available.data,
                   'level': form.level.data
                   }
-        x = db.courses.update_one(course)
+        x = db.courses.insert_one(course)
         return redirect(url_for('courses'))
     return render_template('index.html', form=form)
 
@@ -106,7 +107,7 @@ def courses():
     _courses = db.courses.find()
     courses_list = []
     for course in _courses:
-        courses_list.append({"id": course["id"], "title": course["title"], "description": course["description"],
+        courses_list.append({"title": course["title"], "description": course["description"],
                              "price": course["price"], "available": course["available"], "level": course["level"]})
     return render_template('courses.html', courses_list=courses_list)
 

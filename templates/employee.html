@@ -4,9 +4,11 @@
     <h1>{% block title %} Employees {% endblock %}</h1>
     <hr>
     {% for employee in employees_list %}
-        <h3>Name: {{ employee['name'] }} - {{ employee['last name'] }}</h3>
-        <p>Live in: {{ employee['city'] }} - {{ employee['address'] }}</p>
-        <p>Phone: {{ employee['phone_number'] }}</p>
+        <div>
+            <h3>Name: {{ employee['name'] }} - {{ employee['last name'] }}</h3>
+            <p>Live in: {{ employee['city'] }} - {{ employee['address'] }}</p>
+            <p>Phone: {{ employee['phone_number'] }}</p>
+        </div>
     <hr>
     {% endfor %}
 {% endblock %}
