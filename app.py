@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'auiofhsghzdffjuvhbnjkbhsdfg'
 
 
 def get_db(db_name):
-    client = MongoClient(host='test_mongodb',
+    client = MongoClient(host='mongo-mongodb-0.mongo-mongodb-headless',
                          port=27017, 
                          username='root', 
                          password='pass',
