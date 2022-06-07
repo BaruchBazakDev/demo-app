@@ -15,13 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag flask_app:latest
+      run: docker build . --file Dockerfile --tag app:latest
       
     - name: run docker-compose
       run: docker-compose up -d
       
-    - name: test
-      run: curl demo-app_app_1:5000/devops
+    - name: build test
+      run: docker build ./tests --file Dockerfile --tag test_demo_app:latest
+      
+    - name: run sanity test
+      run: docker run -d --network demo-app_app test_demo_app:latest
       
     - name: shutdown
-      run: docker-compose-down
+      run: docker-compose down

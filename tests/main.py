@@ -13,7 +13,7 @@ assert insert_test.status_code == 200
 
 # Delete test
 delete_test = requests.delete(url + "remove/Batel")
-assert delete_test.status_code == 200
+assert delete_test.status_code == 202
 
 
 
