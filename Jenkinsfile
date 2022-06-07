@@ -20,30 +20,7 @@ pipeline {
     }
 
     stages {
-        stage('Prep') {
-            steps {
-                git branch: env.GIT_BRANCH, url: 'git@gitlab_web:Baruch_developer/analytics.git'
-                script {
-                    branchName = env.GIT_BRANCH.split('/')
-                    if (branchName[0] == 'feature' || branchName[0] == 'release') {
-                        env.VERSION = branchName[1]
-                        echo "${env.VERSION}"
-                        sh "git tag"
-                        TAG = sh (
-                                    script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f3",
-                                    returnStdout: true
-                                    ).trim()
 
-                        env.NEW_TAG = (TAG == "") ? addFix(branchName[1],"0") : addFix(branchName[1],TAG.next())
-                        echo "My new tag: ${env.NEW_TAG}"
-                    }
-                    commit = sh (
-                        script: "git log -1 --oneline",
-                        returnStdout: true,
-                        ).trim()
-                }
-            }
-        }
 
         stage('Checkout') {
             steps {
