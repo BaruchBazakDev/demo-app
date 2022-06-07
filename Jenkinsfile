@@ -60,6 +60,7 @@ pipeline {
 		    }
             steps {
                 echo "test"
+            }
         }
 
         stage('Publish') {
