@@ -12,9 +12,7 @@ pipeline {
             steps {
                 deleteDir()
                 echo 'Pulling... ' + env.GIT_BRANCH
-                sh 'git tag'
                 checkout scm
-                sh 'git tag'
                 echo "commit hash : ${env.GIT_COMMIT}, tag_name: ${env.TAG_NAME}, author: ${env.GIT_AUTHOR_NAME}"
                 }
         }
