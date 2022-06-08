@@ -10,7 +10,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'docker-compose up -d'
-                sh 'curl demo-app:5000/devops'
+                sh 'curl demo-app:5000'
             }
         }
 
@@ -23,6 +23,7 @@ pipeline {
     post {
         always {
             echo 'This will always run'
+            sh 'docker-compose down'
         }
         success {
             echo 'This will run only if successful'
