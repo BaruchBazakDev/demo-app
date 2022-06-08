@@ -12,25 +12,43 @@ pipeline {
             steps {
                 deleteDir()
                 echo 'Pulling... ' + env.GIT_BRANCH
+                sh 'git tag'
                 checkout scm
+                sh 'git tag'
                 echo "commit hash : ${env.GIT_COMMIT}, tag_name: ${env.TAG_NAME}, author: ${env.GIT_AUTHOR_NAME}"
                 }
         }
 
         stage('Build') {
+            when {
+		        expression {
+                    env.GIT_BRANCH ==~ /(main|feature.*)/
+			        }
+	            }
             steps {
                 sh 'docker build -t demo-app-baruch .'
             }
         }
 
         stage('Test') {
+            when {
+		        expression {
+                    env.GIT_BRANCH ==~ /(main|feature.*)/
+			        }
+	            }
             steps {
                 sh 'docker-compose up -d'
-                sh 'curl demo-app:5000'
+                sh 'sleep 5'
+                sh 'curl demo-app:5000/'
             }
         }
 
         stage('Publish') {
+            when {
+		        expression {
+                    env.GIT_BRANCH ==~ /(main)/
+			        }
+	            }
             steps {
                 echo 'Publish image to ECR'
             }
