@@ -13,7 +13,7 @@ services:
       - MONGO_USERNAME=root
       - MONGO_PASS=pass
     networks:
-      - app
+      - jenkins
   db:
     container_name: mongodb
     image: mongo:latest
@@ -25,7 +25,9 @@ services:
     volumes:
       - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
     networks:
-      - app
+      - jenkins
 
 networks:
-  app:
+  default:
+    external:
+      name: jenkins

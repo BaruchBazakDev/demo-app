@@ -13,6 +13,12 @@ pipeline {
                 sh 'curl demo-app:5000/devops'
             }
         }
+
+        stage('Publish') {
+            steps {
+                echo 'Publish image to ECR'
+            }
+        }
     }
     post {
         always {
