@@ -74,7 +74,7 @@ def update():
     data = request.form
     query = {'f_name': data['f_name']}
     phone_number = {"$set": {'phone_number': data['phone_number']}}
-    x = db.devops.updatee(query, phone_number)
+    x = db.devops.update(query, phone_number)
     return str(x)
 
 
