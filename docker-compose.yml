@@ -4,14 +4,14 @@ services:
   app:
     container_name: demo-app
     image: demo-app-baruch
-
-    command: python -u app.py
     ports:
       - "5000:5000"
-    volumes:
-      - .:/app
     links:
       - db
+    environment:
+      - MONGO_URI=mongodb
+      - MONGO_USERNAME=root
+      - MONGO_PASS=pass
     networks:
       - app
   db:
