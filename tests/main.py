@@ -1,6 +1,6 @@
 import requests
 
-url = "http://demo-app:5000/"
+url = "http://demo-app:5000"
 
 # sanity test:
 simple = requests.get(url)
@@ -13,7 +13,7 @@ assert insert_test.status_code == 200
 
 # Delete test
 delete_test = requests.delete(url + "remove/Batel")
-assert delete_test.status_code == 202
+assert delete_test.status_code == 200
 
 
 
