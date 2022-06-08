@@ -19,24 +19,12 @@ pipeline {
         }
 
         stage('Build') {
-	        when {
-		        expression {
-                    env.GIT_BRANCH ==~ /(main|feature.*|release.*)/
-			        }
-	            }
             steps {
                 sh "docker build -t demo-app-baruch ."
-                }
             }
         }
 
         stage('Test') {
-            when {
-                expression {
-                    env.GIT_BRANCH ==~ /(main|release.*|feature.*)/
-                }
-                beforeOptions true
-		    }
             steps {
                 echo "test"
             }
