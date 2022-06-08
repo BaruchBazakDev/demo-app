@@ -25,6 +25,7 @@ pipeline {
 	            }
             steps {
                 sh 'docker build -t demo-app-baruch .'
+                sh 'docker-compose up -d'
             }
         }
 
@@ -35,8 +36,9 @@ pipeline {
 			        }
 	            }
             steps {
-                sh 'docker-compose up -d'
                 sh 'sleep 5'
+                sh 'docker build -t test-app ./tests'
+                sh 'docker run -it --network jenkins test_app'
                 sh 'curl demo-app:5000/'
             }
         }
