@@ -41,7 +41,7 @@ def get_stored_devops():
 def search(name):
     db = get_db("employees")
     res = db.devops.find_one({"f_name": name})
-    return f"result: {res}"
+    return render_template('employee.html', employees_list=res)
 
 
 @app.route("/insert", methods=['POST'])
@@ -65,10 +65,13 @@ def remove(name):
     return str(x.raw_result)
 
 
-@app.route("/update/<name>/<new_phone>", methods=['POST'])
-def update(name, new_phone):
+@app.route("/update/<name>/<new_phone>", methods=['PUT'])
+def update():
     db = get_db("employees")
-    x = db.devops.update_one({"f_name": name}, {"$set": {"phone_number": new_phone}})
+    data = request.form
+    employee_and_phone = {'f_name': data['f_name'],
+                          'phone_number': data['phone_number']}
+    x = db.devops.update_one(employee_and_phone)
     return str(x)
 
 

@@ -24,7 +24,7 @@ pipeline {
 			        }
 	            }
             steps {
-                sh 'docker build -t demo-app-baruch .'
+                sh 'docker build -t demo-app-baruch ./application'
                 sh 'docker-compose up -d'
             }
         }
