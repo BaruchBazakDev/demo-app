@@ -20,7 +20,7 @@ def get_db(db_name):
 
 
 @app.route('/first-init')
-def ping_server():
+def init():
     client = MongoClient(host=os.environ['MONGO_URI'],
                          port=27017,
                          username=os.environ['MONGO_USERNAME'],
