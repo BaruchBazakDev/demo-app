@@ -72,9 +72,9 @@ def remove(name):
 def update():
     db = get_db("employees")
     data = request.form
-    employee_and_phone = {'f_name': data['f_name'],
-                          'phone_number': data['phone_number']}
-    x = db.devops.update_one(employee_and_phone)
+    query = {'f_name': data['f_name']}
+    phone_number = {"$set": {'phone_number': data['phone_number']}}
+    x = db.devops.updatee(query, phone_number)
     return str(x)
 
 
