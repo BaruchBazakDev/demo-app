@@ -30,7 +30,7 @@ pipeline {
                         echo "${env.VERSION}"
                         sh "git tag"
                         TAG = sh (
-                                    script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f2",
+                                    script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f3",
                                     returnStdout: true
                                     ).trim()
 
