@@ -25,7 +25,7 @@ pipeline {
                 git branch: env.GIT_BRANCH, url: 'https://github.com/BaruchBazakDev/demo-app.git'
                 script {
                     branchName = env.GIT_BRANCH.split('/')
-                    if (branchName[0] == 'feature' || branchName[0] == 'main') {
+                    if (branchName[0] == 'feature' || env.GIT_BRANCH == 'main') {
                         env.VERSION = branchName[1]
                         echo "${env.VERSION}"
                         sh "git tag"
