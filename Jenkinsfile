@@ -26,17 +26,23 @@ pipeline {
                 script {
                     if (env.GIT_BRANCH == 'main') {
                         env.VERSION = sh (
-                                    script: "git tag | tail -n 1 | cut -d '.' -f 1-2",
+                                    script: "git tag | tail -n 1",
                                     returnStdout: true
                                     ).trim()
                         echo "${env.VERSION}"
+                        env.MAJOR_MINOR = sh (
+                                    script: "git tag | tail -n 1 | cut -d '.' -f 1-2",
+                                    returnStdout: true
+                                    ).trim()
+                        echo "${env.MAJOR_MINOR}"
+
                         sh "git tag"
                         TAG = sh (
                              script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f3",
                              returnStdout: true
                              ).trim()
 
-                        env.NEW_TAG = (TAG == "") ? addFix(env.VERSION,"0") : addFix(env.VERSION,TAG.next())
+                        env.NEW_TAG = (TAG == "") ? addFix(env.MAJOR_MINOR,"0") : addFix(env.MAJOR_MINOR,TAG.next())
                         echo "My new tag: ${env.NEW_TAG}"
                     }
                     commit = sh (
