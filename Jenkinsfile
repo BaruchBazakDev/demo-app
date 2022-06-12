@@ -78,6 +78,7 @@ pipeline {
                     644435390668.dkr.ecr.eu-central-1.amazonaws.com
                     docker tag demo-app-baruch:latest 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}
                     docker push 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}'''
+                sh 'git tag ${TAG_NEW}'
                 sh 'git push --tags'
             }
         }
@@ -86,6 +87,7 @@ pipeline {
         always {
             echo 'This will always run'
             sh 'docker-compose down'
+            deleteDir()
         }
         success {
             echo 'This will run only if successful'
