@@ -57,6 +57,8 @@ pipeline {
                 echo 'Pulling... ' + env.GIT_BRANCH
                 checkout scm
                 echo "commit hash : ${env.GIT_COMMIT}, tag_name: ${env.TAG_NAME}, author: ${env.GIT_AUTHOR_NAME}"
+                echo "${tag}"
+                echo "${tag_name}"
                 }
         }
 
