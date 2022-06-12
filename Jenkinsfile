@@ -34,7 +34,7 @@ pipeline {
                         if (VERSION == "") {
                             env.VERSION = "1.0"
                             }
-                        echo "${VERSION} version1"
+                        echo "${VERSION} version21"
                         TAG = sh (
                                     script: "git tag | tail -n 1 | grep ${VERSION} | cut -d '.' -f3",
                                     returnStdout: true
