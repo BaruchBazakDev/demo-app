@@ -2,13 +2,12 @@ version: "3"
 services:
   reverse-proxy:
     container_name: reverse-proxy
-    image: nginx:1.22-alpine
+    build: nginx
     ports:
       - "8081:80"
     links:
       - app
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
   app:
     container_name: demo-app
     image: demo-app-baruch
