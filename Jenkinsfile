@@ -28,10 +28,7 @@ pipeline {
                 git branch: env.GIT_BRANCH, url: 'https://github.com/BaruchBazakDev/demo-app.git'
                 script {
                     if (env.GIT_BRANCH == 'main') {
-                        env.VERSION = sh (
-                                    script: "git tag | tail -n 1",
-                                    returnStdout: true
-                                    ).trim()
+                        env.VERSION = sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()
                         FULL_VER = VERSION.split(".")
                         MAJOR = FULL_VER[0]
                         MINOR = FULL_VER[1]
