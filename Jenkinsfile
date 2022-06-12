@@ -32,7 +32,7 @@ pipeline {
                         echo "${VERSION}"
                         echo "${env.VERSION} - with env"
                         env.TAG_NEW = incrementBranch(env.VERSION)
-                        echo "${TAG_NEW} -> new tag
+                        echo "${TAG_NEW} -> new tag"
                     }
                     commit = sh (
                         script: "git log -1 --oneline",
