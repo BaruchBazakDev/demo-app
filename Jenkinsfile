@@ -24,9 +24,11 @@ pipeline {
             steps {
                 git branch: env.GIT_BRANCH, url: 'https://github.com/BaruchBazakDev/demo-app.git'
                 script {
-                    branchName = env.GIT_BRANCH.split('/')
-                    if (branchName[0] == 'feature' || env.GIT_BRANCH == 'main') {
-                        env.VERSION = branchName[1]
+                    if (env.GIT_BRANCH == 'main') {
+                        env.VERSION = sh (
+                                    script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f 1-2",
+                                    returnStdout: true
+                                    ).trim()
                         echo "${env.VERSION}"
                         sh "git tag"
                         TAG = sh (
@@ -76,7 +78,7 @@ pipeline {
                 sh 'sleep 5'
                 sh 'docker build -t test-app ./tests'
                 sh 'docker run --network jenkins test_app'
-                sh 'curl demo-app:5000/'
+                sh 'curl demo-app:8080/devops'
             }
         }
 
