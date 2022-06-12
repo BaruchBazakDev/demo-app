@@ -42,7 +42,7 @@ pipeline {
                              returnStdout: true
                              ).trim()
 
-                        env.NEW_TAG = (TAG == "") ? addFix(env.MAJOR_MINOR,"0") : addFix(env.MAJOR_MINOR,TAG.next())
+                        env.NEW_TAG = (TAG == "") ? addFix(MAJOR_MINOR,"0") : addFix(MAJOR_MINOR,TAG.next())
                         echo "My new tag: ${env.NEW_TAG}"
                     }
                     commit = sh (
