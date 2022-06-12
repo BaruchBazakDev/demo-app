@@ -25,7 +25,7 @@ pipeline {
     stages {
         stage('Prep') {
             steps {
-                git branch: env.GIT_BRANCH, url: 'https://github.com/BaruchBazakDev/demo-app.git'
+                git branch: env.GIT_BRANCH, credentialsId: 'demo-app', url: 'https://github.com/BaruchBazakDev/demo-app.git'
                 script {
                     if (env.GIT_BRANCH == 'main') {
                         env.VERSION = sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()
@@ -87,6 +87,7 @@ pipeline {
                     644435390668.dkr.ecr.eu-central-1.amazonaws.com
                     docker tag demo-app-baruch:latest 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}
                     docker push 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}'''
+                sh 'git push --tags'
             }
         }
     }
