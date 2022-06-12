@@ -26,7 +26,7 @@ pipeline {
                 script {
                     if (env.GIT_BRANCH == 'main') {
                         env.VERSION = sh (
-                                    script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f 1-2",
+                                    script: "git tag | tail -n 1 | cut -d '.' -f 1-2",
                                     returnStdout: true
                                     ).trim()
                         echo "${env.VERSION}"
