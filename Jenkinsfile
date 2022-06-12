@@ -29,16 +29,14 @@ pipeline {
                                     script: "git tag | tail -n 1",
                                     returnStdout: true
                                     ).trim()
-                        echo "${env.VERSION}"
+                        major_minor_fix = env.VERSION.split('.')
                         env.MAJOR_MINOR = sh (
-                                    script: "git tag | tail -n 1 | cut -d '.' -f 1-2",
+                                    script: "${major_minor_fix} | cut -d '.' -f 1-2",
                                     returnStdout: true
                                     ).trim()
                         echo "${env.MAJOR_MINOR}"
-
-                        sh "git tag"
                         TAG = sh (
-                             script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f3",
+                             script: "${major_minor_fix} | cut -d '.' -f3",
                              returnStdout: true
                              ).trim()
 
