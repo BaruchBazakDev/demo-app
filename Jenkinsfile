@@ -25,7 +25,7 @@ pipeline {
     stages {
         stage('Prep') {
             steps {
-                git branch: env.GIT_BRANCH, credentialsId: 'demo-app', url: 'https://github.com/BaruchBazakDev/demo-app.git'
+                git branch: env.GIT_BRANCH, credentialsId: 'demo-app', url: 'git@github.com:BaruchBazakDev/demo-app.git'
                 script {
                     if (env.GIT_BRANCH == 'main') {
                         env.VERSION = sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()
