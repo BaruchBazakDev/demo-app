@@ -32,7 +32,11 @@ pipeline {
                                     script: "git tag | tail -n 1",
                                     returnStdout: true
                                     ).trim()
-                        TAG_NEW = incrementVersion(VERSION)
+                        FULL_VER = VERSION.split("\\.")
+                        MAJOR = FULL_VER[0]
+                        MINOR = FULL_VER[1]
+                        TAG = FULL_VER[2]
+                        TAG_NEW = incrementVersion(MAJOR, MINOR, TAG)
                         echo '${TAG_NEW} -> new tag'
                     }
                     commit = sh (
@@ -86,8 +90,8 @@ pipeline {
                 echo 'Publish image to ECR'
                 sh '''aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin\
                     644435390668.dkr.ecr.eu-central-1.amazonaws.com
-                    docker tag demo-app-baruch:latest 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch
-                    docker push 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch'''
+                    docker tag demo-app-baruch:latest 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}
+                    docker push 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}'''
             }
         }
     }
