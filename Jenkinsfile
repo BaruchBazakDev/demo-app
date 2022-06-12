@@ -78,8 +78,17 @@ pipeline {
                     644435390668.dkr.ecr.eu-central-1.amazonaws.com
                     docker tag demo-app-baruch:latest 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}
                     docker push 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}'''
-                sh 'git tag ${TAG_NEW}'
-                sh 'git push --tags'
+            }
+
+        stage("Tag") {
+            when {
+		        expression {
+                    env.GIT_BRANCH ==~ /(main)/
+			        }
+	            }
+            steps {
+                sh '''git tag ${TAG_NEW}
+                    git push --tags'''
             }
         }
     }
@@ -90,7 +99,8 @@ pipeline {
             deleteDir()
         }
         success {
-            echo 'This will run only if successful'
+            echo '${TAG_NEW} version uploaded.'
+            echo 'send mail - update to ${TAG_NEW} '
         }
         failure {
             echo 'This will run only if failed'

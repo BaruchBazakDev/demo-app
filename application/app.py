@@ -111,11 +111,11 @@ def index():
 def courses():
     db = get_db("Develeap")
     _courses = db.courses.find()
-    courses_list = []
+    courses = []
     for course in _courses:
-        courses_list.append({"title": course["title"], "description": course["description"],
-                             "price": course["price"], "available": course["available"], "level": course["level"]})
-    return render_template('courses.html', courses_list=courses_list)
+        courses.append({"title": course["title"], "description": course["description"],
+                        "price": course["price"], "available": course["available"], "level": course["level"]})
+    return render_template('courses.html', courses_list=courses)
 
 
 if __name__ == '__main__':
