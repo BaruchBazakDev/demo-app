@@ -36,7 +36,7 @@ pipeline {
                                     returnStdout: true
                                     ).trim()
 
-                        env.NEW_TAG = (TAG == "") ? addFix(branchName[1],"0") : addFix(branchName[1],TAG.next())
+                        env.NEW_TAG = (TAG == "") ? addFix(env.VERSION,"0") : addFix(env.VERSION,TAG.next())
                         echo "My new tag: ${env.NEW_TAG}"
                     }
                     commit = sh (
