@@ -4,7 +4,7 @@ services:
     container_name: reverse-proxy
     image: nginx:1.22-alpine
     ports:
-      - "8080:80"
+      - "8081:80"
     links:
       - app
     volumes:

@@ -1,6 +1,6 @@
 import requests
 
-url = "http://demo-app:5000"
+url = "http://demo-app:8081"
 
 # sanity test:
 simple = requests.get(url)
