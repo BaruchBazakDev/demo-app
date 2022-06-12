@@ -77,7 +77,7 @@ pipeline {
             steps {
                 sh 'sleep 5'
                 sh 'docker build -t test-app ./tests'
-                sh 'docker run --network jenkins test_app'
+                sh 'docker run --network jenkins test-app'
                 sh 'curl demo-app:8081/devops'
             }
         }
