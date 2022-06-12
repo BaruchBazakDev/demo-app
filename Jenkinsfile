@@ -32,7 +32,7 @@ pipeline {
                                     script: "git tag | tail -n 1",
                                     returnStdout: true
                                     ).trim()
-                        TAG_NEW = incrementBranch(VERSION)
+                        TAG_NEW = incrementVersion(VERSION)
                         echo '${TAG_NEW} -> new tag'
                     }
                     commit = sh (
