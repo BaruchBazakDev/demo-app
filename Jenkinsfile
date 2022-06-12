@@ -6,6 +6,9 @@ String incrementBranch(String version){
     splitVersion = version.split("\\.")
     return splitVersion[0]+"."+splitVersion[1]+"."+splitVersion[2].next()
 }
+String incrementVersion(String major, String minor, String fixNumber){
+    return splitVersion[0]+"."+splitVersion[1]+"."+splitVersion[2].next()
+}
 String branch_and_commit(String branch, String massage){
     return branch+" "+massage
 }
@@ -29,19 +32,8 @@ pipeline {
                                     script: "git tag | tail -n 1",
                                     returnStdout: true
                                     ).trim()
-                        major_minor_fix = env.VERSION.split('.')
-                        env.MAJOR_MINOR = sh (
-                                    script: "${major_minor_fix} | cut -d '.' -f 1-2",
-                                    returnStdout: true
-                                    ).trim()
-                        echo "${env.MAJOR_MINOR}"
-                        TAG = sh (
-                             script: "${major_minor_fix} | cut -d '.' -f3",
-                             returnStdout: true
-                             ).trim()
-
-                        env.NEW_TAG = (TAG == "") ? addFix(MAJOR_MINOR,"0") : addFix(MAJOR_MINOR,TAG.next())
-                        echo "My new tag: ${env.NEW_TAG}"
+                        TAG_NEW = incrementBranch(VERSION)
+                        echo '${TAG_NEW} -> new tag'
                     }
                     commit = sh (
                         script: "git log -1 --oneline",
@@ -57,8 +49,6 @@ pipeline {
                 echo 'Pulling... ' + env.GIT_BRANCH
                 checkout scm
                 echo "commit hash : ${env.GIT_COMMIT}, tag_name: ${env.TAG_NAME}, author: ${env.GIT_AUTHOR_NAME}"
-                echo "${tag}"
-                echo "${tag_name}"
                 }
         }
 
