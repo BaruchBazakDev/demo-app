@@ -79,6 +79,7 @@ pipeline {
                     docker tag demo-app-baruch:latest 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}
                     docker push 644435390668.dkr.ecr.eu-central-1.amazonaws.com/demo-app-baruch:${TAG_NEW}'''
             }
+        }
 
         stage("Tag") {
             when {
