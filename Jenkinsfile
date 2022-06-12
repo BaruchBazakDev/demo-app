@@ -31,6 +31,10 @@ pipeline {
                                     ).trim()
                         echo "${env.VERSION} version"
                         sh "git tag"
+                        if (VERSION == "") {
+                            VERSION = "1.0"
+                            }
+                        echo "${VERSION}"
                         TAG = sh (
                                     script: "git tag | tail -n 1 | grep ${env.VERSION} | cut -d '.' -f3",
                                     returnStdout: true
