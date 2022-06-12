@@ -32,7 +32,7 @@ pipeline {
                                     script: "git tag | tail -n 1",
                                     returnStdout: true
                                     ).trim()
-                        FULL_VER = VERSION.split("\\.")
+                        FULL_VER = VERSION.split(".")
                         MAJOR = FULL_VER[0]
                         MINOR = FULL_VER[1]
                         TAG = FULL_VER[2]
