@@ -76,7 +76,7 @@ pipeline {
 	            }
             steps {
                 sh 'sleep 5'
-                sh 'curl demo-app:8081'
+                sh 'curl reverse-proxy/devops 8081'
             }
         }
 
