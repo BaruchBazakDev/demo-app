@@ -29,11 +29,9 @@ pipeline {
                 script {
                     if (env.GIT_BRANCH == 'main') {
                         env.VERSION = sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()
-                        FULL_VER = VERSION.split(".")
-                        MAJOR = FULL_VER[0]
-                        MINOR = FULL_VER[1]
-                        TAG = FULL_VER[2]
-                        TAG_NEW = incrementVersion(MAJOR, MINOR, TAG)
+                        echo "${VERSION}"
+                        echo "${env.VERSION} - with env"
+                        TAG_NEW = incrementBranch(env.VERSION)
                         echo '${TAG_NEW} -> new tag'
                     }
                     commit = sh (
