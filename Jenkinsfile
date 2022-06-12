@@ -31,8 +31,8 @@ pipeline {
                         env.VERSION = sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()
                         echo "${VERSION}"
                         echo "${env.VERSION} - with env"
-                        TAG_NEW = incrementBranch(env.VERSION)
-                        echo '${TAG_NEW} -> new tag'
+                        env.TAG_NEW = incrementBranch(env.VERSION)
+                        echo "${TAG_NEW} -> new tag
                     }
                     commit = sh (
                         script: "git log -1 --oneline",
